@@ -1,0 +1,31 @@
+Visual Code remote debug
+
+1. maven 
+   mvn spring-boot:run -Dspring-boot.run.jvmArguments="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
+
+
+-Dspring-boot.run.jvmArguments: This option allows you to pass JVM arguments when running the Spring Boot application.
+-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005: This is the standard JVM option for enabling remote debugging:
+transport=dt_socket: Use socket transport for debugging.
+server=y: Enable JVM to act as a debug server.
+suspend=n: Do not suspend the JVM startup until the debugger is attached.
+address=*:5005: Listen for debugger connections on port 5005.
+
+
+2. Configure VS Code for Localhost:
+
+Modify the launch.json configuration to set hostName to localhost
+
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Remote Debug",
+      "request": "attach",
+      "hostName": "localhost",
+      "port": 5005,
+      "projectName": "your-java-project"
+    }
+  ]
+}
